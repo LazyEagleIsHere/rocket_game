@@ -6,10 +6,10 @@ namespace StatusBarKind {
     export const Gravity = StatusBarKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanDepths0, function (sprite, location) {
-    game.over(false, effects.confetti)
+    game.gameOver(false)
 })
 statusbars.onZero(StatusBarKind.Fuel, function (status) {
-    game.over(false, effects.confetti)
+    game.gameOver(false)
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava0, function (sprite, location) {
     game.over(false, effects.confetti)
@@ -80,7 +80,7 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
 function score (score_multi: number) {
     end_game_score = 0
     if (mySprite.vy > 10) {
-        game.over(false, effects.confetti)
+        game.gameOver(false)
     } else {
         info.setScore(Math.abs(info.life() - (end_game_score * score_multi + statusbar.value)))
         game.over(true, effects.confetti)
@@ -173,6 +173,9 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanSand2, function (spr
 scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanSand3, function (sprite, location) {
     score(3)
 })
+controller.combos.attachCombo("Down + Left + Right", function () {
+    statusbar.value += -1
+})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     score(10)
 })
@@ -182,6 +185,9 @@ let THRUST = 0
 let mySprite: Sprite = null
 let GRAVITY = 0
 let idle = 0
+story.printText("This is a rocket challenge game", 75, 50)
+story.printText("Down button will let the rocket go upwards\\nRight button is turning left\\nLeft button is going right", 75, 50)
+story.printText("Remember not to land so fast", 75, 50)
 idle = 0
 GRAVITY = randint(0.03, 19.5)
 story.printText("Gravity: " + convertToText(GRAVITY), 75, 0, 15)
