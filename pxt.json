@@ -1,5 +1,5 @@
 {
-    "name": "something that can fly in the space (so lag) - Copy",
+    "name": "something that can fly in the space (so lag) - Copy #3",
     "description": "",
     "dependencies": {
         "device": "*",
@@ -20,7 +20,9 @@
         "assets.json",
         "tilemap.g.jres",
         "tilemap.g.ts",
-        "main.py"
+        "main.py",
+        "images.g.jres",
+        "images.g.ts"
     ],
     "testFiles": [
         "test.ts"
