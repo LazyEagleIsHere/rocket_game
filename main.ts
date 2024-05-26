@@ -15,8 +15,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.hazardLava0, function (sp
     game.over(false, effects.confetti)
 })
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
-    mySprite.ay = GRAVITY
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ay = GRAVITY
+        mySprite.setImage(img`
         . . . . . . . 1 . . . . . . . . 
         . . . . . . . 1 . . . . . . . . 
         . . . . . . 1 1 1 . . . . . . . 
@@ -34,10 +36,13 @@ controller.down.onEvent(ControllerButtonEvent.Released, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+    }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ax = Math.abs(THRUST)
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ax = Math.abs(THRUST)
+        mySprite.setImage(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -55,10 +60,14 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+        statusbar.value += -1
+    }
 })
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
-    mySprite.ax = idle
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ax = idle
+        mySprite.setImage(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -76,6 +85,7 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+    }
 })
 function score (score_multi: number) {
     end_game_score = 0
@@ -87,8 +97,10 @@ function score (score_multi: number) {
     }
 }
 controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    mySprite.ax = idle
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ax = idle
+        mySprite.setImage(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -106,13 +118,16 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.castle.rock0, function (sprite, location) {
     score(2)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ax = -4
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ax = -4
+        mySprite.setImage(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -130,6 +145,8 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `)
+        statusbar.value += -1
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.buttonOrangeDepressed, function (sprite, location) {
     score(4)
@@ -141,8 +158,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanSand6, function (spr
     score(3)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay = 0 - (GRAVITY - THRUST)
-    mySprite.setImage(img`
+    if (talks) { }
+    else {
+        mySprite.ay = 0 - (GRAVITY - THRUST)
+        mySprite.setImage(img`
         . . . . . . . 1 . . . . . . . . 
         . . . . . . . 1 . . . . . . . . 
         . . . . . . 1 1 1 . . . . . . . 
@@ -160,6 +179,8 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . 2 4 2 4 2 . . . . . . 
         . . . . 2 5 5 2 5 5 2 . . . . . 
         `)
+        statusbar.value += -1
+    }
 })
 info.onLifeZero(function () {
 	
@@ -173,12 +194,10 @@ scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanSand2, function (spr
 scene.onOverlapTile(SpriteKind.Player, sprites.builtin.oceanSand3, function (sprite, location) {
     score(3)
 })
-controller.combos.attachCombo("Down + Left + Right", function () {
-    statusbar.value += -1
-})
 scene.onOverlapTile(SpriteKind.Player, sprites.dungeon.collectibleInsignia, function (sprite, location) {
     score(10)
 })
+let talks = true
 let end_game_score = 0
 let statusbar: StatusBarSprite = null
 let THRUST = 0
